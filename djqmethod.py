@@ -47,5 +47,7 @@ class Manager(models.Manager, QMethodLookupMixin):
     # relations (i.e. `group.people`, see README for details).
     use_for_related_fields = True
 
-    def get_query_set(self, *args, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         return QMethodQuerySet(model=self.model, using=self._db)
+
+    get_query_set = get_queryset
