@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 from functools import partial
 
@@ -42,12 +42,8 @@ class QMethodQuerySet(models.query.QuerySet, QMethodLookupMixin):
 
 
 class Manager(models.Manager, QMethodLookupMixin):
+    _queryset_class = QMethodQuerySet
 
     # If this is the default manager for a model, use this manager class for
     # relations (i.e. `group.people`, see README for details).
     use_for_related_fields = True
-
-    def get_queryset(self, *args, **kwargs):
-        return QMethodQuerySet(model=self.model, using=self._db)
-
-    get_query_set = get_queryset
